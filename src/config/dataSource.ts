@@ -1,6 +1,7 @@
 import "dotenv/config"
 import { DataSource } from "typeorm"
 import {User} from "../entities/User"
+import { NewContact } from "../entities/NewContact";
 
 const dbType: string | undefined = process.env.DB_TYPE;
 
@@ -11,7 +12,7 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USERNAME,
     database: process.env.DB,
     password: process.env.DB_PASSWORD,
-    entities: [User],
+    entities: [User, NewContact],
     logging: true,
     synchronize: true,
 })
