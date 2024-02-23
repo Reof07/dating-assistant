@@ -1,8 +1,7 @@
-import { Request, Response } from "express";
+import { Request, Response } from "express"
 import "dotenv/config"
 
-import { sendMessage } from '../interfaces/parametersWhatsapp.interface'
-import { sendWhatsAppResponse } from "../services/sendWhatsAppResponse";
+import { handleIntentions } from "../services/sendWhatsAppResponse"
 
 /**
  * 
@@ -32,25 +31,29 @@ const webhookController = async (req: Request, res: Response) => {
  */
 const receiveMessageController = async (req: Request, res: Response) =>{
     
-    const incomingData = req.body;
-    const messages = incomingData.entry[0].changes[0].value.messages;
-    const contacts = incomingData.entry[0].changes[0].value.contacts;
-
-    console.log('Mensajes:', messages);
-    console.log('Contactos:', contacts);
-    const { wa_id }  = contacts[0]
-    const whatsappBusinessPhoneNumber: string = process.env.WHATSAPP_BUSINESS_PHONE_NUMBER || '';
-    const parametersContact: sendMessage = { 
-        phoneNumberId: whatsappBusinessPhoneNumber,
-        userPhoneNumber: wa_id
-    }
-
-    //Si el contacto no existe, funcion para manejar si el contacto no existe (Crear el nuevo contacto y enviar mensaje de bienvenida)
-    // Se rl cotacto  existe funcion para ver la intancion y responder segun lo requerido.
-    if (messages[0].type == 'text') {
-        console.log('ESTE ES EL MENSAJE', messages[0].text)
-        sendWhatsAppResponse(parametersContact, 'Hola, como estas?')
-    }
+        try {
+            const incomingData = req.body;
+    
+            if (incomingData.object && incomingData.entry?.[0]?.changes?.[0]?.value) {
+                
+                const { messages, contacts } = incomingData.entry[0].changes[0].value
+    
+                if (messages && contacts) {
+                    //const parametersContact = await getParameters(contacts);
+                    const { text } = messages[0];
+    
+                    if (text) {
+                        await handleIntentions(text.body, contacts);
+                    }
+                }
+                res.sendStatus(200);
+            } else {
+                res.sendStatus(404);
+            }
+        } catch (error) {
+            console.error('Error en receiveMessageController:', error);
+            res.status(500).send('Error interno del servidor');
+        }
 }
 
 
