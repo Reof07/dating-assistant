@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import "dotenv/config"
 
-import { handleIntentions } from "../services/sendWhatsAppResponse"
+import { intentHandler } from "../services/intentHandler.service"
 
 /**
  * 
@@ -39,12 +39,11 @@ const receiveMessageController = async (req: Request, res: Response) =>{
                 const { messages, contacts } = incomingData.entry[0].changes[0].value
     
                 if (messages && contacts) {
-                    console.log(contacts)
-                    //const parametersContact = await getParameters(contacts);
                     const { text } = messages[0];
+                    const { wa_id } = contacts[0]
     
                     if (text) {
-                        await handleIntentions(text.body, contacts);
+                        await intentHandler(wa_id, text.body);
                     }
                 }
                 res.sendStatus(200);
