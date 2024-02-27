@@ -39,6 +39,7 @@ const receiveMessageController = async (req: Request, res: Response) =>{
                 const { messages, contacts } = incomingData.entry[0].changes[0].value
     
                 if (messages && contacts) {
+                    console.log(contacts)
                     //const parametersContact = await getParameters(contacts);
                     const { text } = messages[0];
     
