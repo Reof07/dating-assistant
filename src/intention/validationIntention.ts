@@ -6,7 +6,7 @@ import { Intention, intentionKeywords } from "./intents"
  */
 export const validateIntentions = (message: string): Promise<Intention> => {
   const lowerCaseMessage = message.toLowerCase()
-
+  
   if (containsAny(lowerCaseMessage, intentionKeywords.GREETING)) {
     return Promise.resolve(Intention.GREETING)
   } else if (containsAny(lowerCaseMessage, intentionKeywords.APPOINTMENT)) {

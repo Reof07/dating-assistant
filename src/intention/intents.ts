@@ -12,7 +12,7 @@ export enum Intention {
 
 export const intentionKeywords: Record<Intention, string[]> = {
     GREETING: ['hola', 'buenos días', 'saludos'],
-    APPOINTMENT: ['agendar citas', 'eliminar citas', 'cambiar citas', 'horarios', 'ubicacion', 'contacto'],
+    APPOINTMENT: ['agendar cita', 'eliminar cita', 'cambiar cita', 'horarios', 'ubicacion', 'contacto'],
     SEVICES: ['servicio'],
     LOCATION: ['ubicacion'],
     CONTACT: ['contacto'],

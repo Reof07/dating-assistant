@@ -32,4 +32,18 @@ export const  getTemplatedMessageInput= async (recipient: any, data: string) => 
         }
     )
   }
+export const  getTemplatedMessage= async (recipient: any, data: string, templateName :string) => {
+    return JSON.stringify({
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": recipient,
+        "type": "template",
+        "template": {
+          "name": templateName,
+          "language": {
+            "code": "es"
+          }}
+        }
+    )
+  }
 

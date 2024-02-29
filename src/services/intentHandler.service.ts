@@ -1,11 +1,12 @@
 import  { Actions } from "../interfaces/action.interface"
 import { validateIntentions } from "../intention/validationIntention"
 import { GreetingsAction } from '../actions/greetings.actions';
+import { AppointmentAction } from '../actions/appointment';
 import { Intention } from "../intention/intents"
 
 const actions: Record<Intention, Actions> = {
   GREETING: new GreetingsAction(),
-  APPOINTMENT: new GreetingsAction(),
+  APPOINTMENT: new AppointmentAction(),
   SEVICES: new GreetingsAction(),
   LOCATION : new GreetingsAction(),
   CONTACT :  new GreetingsAction(),
