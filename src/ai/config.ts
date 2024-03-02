@@ -1,6 +1,10 @@
 
 import "dotenv/config"
-import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai"
+import { 
+    GoogleGenerativeAI,
+    HarmCategory, 
+    HarmBlockThreshold 
+} from "@google/generative-ai"
 
 
 const MODEL_NAME : string | undefined | any = process.env.MODEL_NAME
@@ -21,7 +25,7 @@ export const getGenerationConfig = () => ({
     temperature: 0.5,
     topK: 1,
     topP: 1,
-    maxOutputTokens: 500,
+    maxOutputTokens: 326,
 })
 
 /**
